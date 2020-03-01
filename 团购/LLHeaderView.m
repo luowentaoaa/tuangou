@@ -25,6 +25,7 @@
 }
 -(void)awakeFromNib{
     NSLog(@"awakeFromNib");
+    [super awakeFromNib];
     CGFloat imgW=380;
     CGFloat imgH=125;
     CGFloat imgY=0;
@@ -48,6 +49,7 @@
     self.page.currentPage=0;
     
     self.timer=[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(scrollImage) userInfo:nil repeats:YES];
+    self.scrollView.delegate=self;
     
 }
 #pragma mark - 轮播
@@ -59,7 +61,7 @@
     else{
         nowpage++;
     }
-    NSLog(@"%d",nowpage);
+   // NSLog(@"%d",nowpage);
     CGFloat offerX=nowpage*self.scrollView.frame.size.width;
     
     [self.scrollView setContentOffset:CGPointMake(offerX, 0) animated:YES];
@@ -67,7 +69,7 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //NSLog(@"滚");
+    NSLog(@"滚");
     CGFloat x=scrollView.contentOffset.x;
     x+=scrollView.frame.size.width*0.5;
     int idx=x/scrollView.frame.size.width;
